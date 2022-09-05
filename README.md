@@ -27,6 +27,39 @@ Clone the Repository go to folder aspire-bechallenge
 https://www.getpostman.com/collections/932b47e7998738691308
 
 
+## API Links For Reference
+
+- Admin Register -> POST Method -> http://127.0.0.1:8000/api/v1/admin/register -> Parameters (name,email,password) 
+
+- Admin login -> POST Method -> http://127.0.0.1:8000/api/v1/admin/login -> Parameters (email,password) 
+
+- Admin Loans List -> GET Method -> http://127.0.0.1:8000/api/v1/loan/list
+
+- Admin Single Loan View -> GET Method -> http://127.0.0.1:8000/api/v1/loan/single/{loan-id}
+
+- Admin Approve Loan -> PUT Method -> http://127.0.0.1:8000/api/v1/loan/approve/{loan-id}
+
+- Admin Delete Loan -> DELETE Method -> http://127.0.0.1:8000/api/v1/loan/delete/{loan-id}
+
+- Admin Logout -> POST Method -> http://127.0.0.1:8000/api/v1/admin/logout 
+
+
+
+- Customer Register -> POST Method -> http://127.0.0.1:8000/api/v1/user/register -> Parameters (name,email,password) 
+
+- Customer login -> POST Method -> http://127.0.0.1:8000/api/v1/user/login -> Parameters (email,password) 
+
+- Apply Loan -> POST Method -> http://127.0.0.1:8000/api/v1/loan/apply -> Parameters (amount,term) 
+
+- User Loans List -> GET Method -> http://127.0.0.1:8000/api/v1/loan/list
+
+- Repay Schedules list -> GET Method -> http://127.0.0.1:8000/api/v1/repayloan/schedules
+
+- Repay Single View -> GET Method -> http://127.0.0.1:8000/api/v1/repayloan/single/{repayment-id}
+
+- Repay Payment -> PUT Method -> http://127.0.0.1:8000/api/v1/repayloan/payment/{repayment-id} -> Parameters (amount) 
+
+
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
