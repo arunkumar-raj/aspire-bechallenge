@@ -3,6 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+//Include Controllers needed
+use App\Http\Controllers\Api\V1\UserController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -16,4 +19,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+
+//API Version1
+Route::group(['prefix'=>'v1/user'], function(){
+    Route::apiResource('register',UserController::class,['only' => ['store']]);
 });
