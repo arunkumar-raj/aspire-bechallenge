@@ -26,6 +26,10 @@ Clone the Repository go to folder aspire-bechallenge
 
 https://www.getpostman.com/collections/932b47e7998738691308
 
+## Brief documentation for the project: the choices made and why
+
+https://drive.google.com/file/d/1OdG9PO7apFKMuwI9Mk8Oj7_ZFrYyrv0x/view?usp=sharing
+
 
 ## API Links For Reference
 
@@ -58,6 +62,7 @@ https://www.getpostman.com/collections/932b47e7998738691308
 - Repay Single View -> GET Method -> http://127.0.0.1:8000/api/v1/repayloan/single/{repayment-id}
 
 - Repay Payment -> PUT Method -> http://127.0.0.1:8000/api/v1/repayloan/payment/{repayment-id} -> Parameters (amount) 
+
 
 
 ## License
