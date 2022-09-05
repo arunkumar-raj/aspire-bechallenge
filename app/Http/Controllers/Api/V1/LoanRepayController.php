@@ -10,7 +10,8 @@ use App\Models\LoanRepayment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Http\Response;
+use App\Http\Resources\V1\LoanRepayResource;
+use App\Http\Resources\V1\LoanRepayCollection;
 
 use Illuminate\Support\Facades\Log;
 use Exception;
@@ -26,7 +27,7 @@ class LoanRepayController extends ApiController
                 $user_loans = Loans::where('user_id',$user_id)->where('loan_status', 'APPROVED')->first();
                 if(! empty($user_loans) && $user_loans->count()){
                     $schedules = LoanRepayment::all()->sortBy("id");
-                    return response()->json($schedules);
+                    return new LoanRepayCollection($schedules);
                 }else{
                     return $this->returnError(__('api.no_schedules'),  [], 401);
                 }
@@ -45,7 +46,7 @@ class LoanRepayController extends ApiController
         try {
             if (Auth::check()) {
                 $single_schedule = LoanRepayment::where('id',$id)->first();
-                return response()->json($single_schedule);
+                return new LoanRepayResource($single_schedule);
             }else{
                 return $this->returnError(__('api.please_login'),  [], 401);
             }
@@ -82,7 +83,7 @@ class LoanRepayController extends ApiController
                         $schedule_update->paid_date = date("Y-m-d");
                         $schedule_update->status = "PAID";
                         $schedule_update->update();
-                        return response()->json($schedule_update);
+                        return new LoanRepayResource($schedule_update);
                     }else{
                         return $this->returnError(__('api.already_paid'),  [], 401);
                     }
