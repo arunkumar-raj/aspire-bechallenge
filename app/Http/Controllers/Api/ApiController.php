@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+
 use Illuminate\Support\Facades\Log;
 use Exception;
 
@@ -37,6 +40,18 @@ class ApiController extends Controller
                 $response['data'] = $errMessages;
             }
             return response()->json($response, $code);
+        }
+        catch(Exception $e){
+            Log::error($e);
+        }
+    }
+
+    /********** Logout Any user ie customer **************/
+    public function logout(){
+        try {
+            Session::flush();
+            Auth::logout();
+            return $this->returnResponse('', __('api.user_logout_success')); 
         }
         catch(Exception $e){
             Log::error($e);

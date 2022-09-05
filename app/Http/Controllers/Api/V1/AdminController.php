@@ -14,9 +14,10 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
 use Exception;
 
-class UserController extends ApiController
+class AdminController extends ApiController
 {
-    /********** Login End user ie customer **************/
+
+    /********** Login Admin user **************/
     public function login(Request $request){
         try {
             //Validate the request 
@@ -34,10 +35,10 @@ class UserController extends ApiController
             $credentials = [
                 'email' => $request->email,
                 'password' => $request->password,
-                'is_admin' => 0
+                'is_admin' => 1
             ];
             if(Auth::attempt($credentials)){
-                return $this->returnResponse(Response::HTTP_OK, __('api.user_login_success'));    
+                return $this->returnResponse(Response::HTTP_OK, __('api.admin_login_success'));    
             }else{
                 return $this->returnError(__('api.credentials_mismatch'),  [], 401);
             }
@@ -46,10 +47,12 @@ class UserController extends ApiController
             Log::error($e);
         }
     }
-    
-    /********** Register Customers **************/
-    public function store(Request $request){
+
+    /********** Register Admin User **************/
+    public function store(Request $request)
+    {
         try{
+
             //Validate the request 
             $validator = Validator::make($request->all(), 
             [
@@ -59,13 +62,14 @@ class UserController extends ApiController
             ]);
             
             if($validator->fails()){
-                return $this->returnError(__('api.validation_error'), $validator->errors());
+                 return $this->returnError(__('api.validation_error'), $validator->errors());
             }
 
             //Create the user after validation passed
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
+                'is_admin' => 1,
                 'password' => Hash::make($request->password)
             ]);
 
