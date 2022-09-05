@@ -40,8 +40,8 @@ Route::group(['prefix'=>'v1/admin'], function(){
 });
 
 Route::group(['prefix'=>'v1/loan','middleware' => 'auth'], function(){
-    Route::apiResource('view',LoanController::class,['only' => ['index']]);
-    Route::apiResource('create',LoanController::class,['only' => ['store']]);
+    Route::apiResource('list',LoanController::class,['only' => ['index']]);
+    Route::apiResource('apply',LoanController::class,['only' => ['store']]);
     Route::apiResource('single',LoanController::class,['only' => ['show']]);
     Route::apiResource('approve',LoanController::class,['only' => ['update']]);
     Route::apiResource('delete',LoanController::class,['only' => ['destroy']]);
