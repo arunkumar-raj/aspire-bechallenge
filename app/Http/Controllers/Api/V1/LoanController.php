@@ -119,7 +119,7 @@ class LoanController extends ApiController
                 $is_admin = Auth::user()->is_admin;
                 if($is_admin){
                     $loan_update = Loans::where('id',$id)->first();
-                    if($loan_update->count()){
+                    if(!empty($loan_update) && $loan_update->count()){
                         $minimum_amt = round($loan_update->amount/$loan_update->scheduled_terms,2);
                         $loan_update->minimum_due = $minimum_amt;
                         $loan_update->loan_status = "APPROVED";
@@ -145,7 +145,9 @@ class LoanController extends ApiController
                 $is_admin = Auth::user()->is_admin;
                 if($is_admin){
                     $single_loan = Loans::where('id',$id)->first();
-                    $single_loan->delete();
+                    if(!empty($single_loan)){
+                        $single_loan->delete();
+                    }
                     $response = [
                         "status" => Response::HTTP_OK
                     ];
