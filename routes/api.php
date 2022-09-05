@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\ApiController;
 use App\Http\Controllers\Api\V1\UserController;
 use App\Http\Controllers\Api\V1\AdminController;
+use App\Http\Controllers\Api\V1\LoanController;
+use App\Http\Controllers\Api\V1\LoanRepayController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,8 +32,23 @@ Route::group(['prefix'=>'v1/user'], function(){
     Route::post('login',[UserController::class,'login']);
     Route::post('logout',[ApiController::class,'logout']);
 });
+
 Route::group(['prefix'=>'v1/admin'], function(){
     Route::apiResource('register',AdminController::class,['only' => ['store']]);
     Route::post('login',[AdminController::class,'login']);
     Route::post('logout',[ApiController::class,'logout']);
+});
+
+Route::group(['prefix'=>'v1/loan','middleware' => 'auth'], function(){
+    Route::apiResource('view',LoanController::class,['only' => ['index']]);
+    Route::apiResource('create',LoanController::class,['only' => ['store']]);
+    Route::apiResource('single',LoanController::class,['only' => ['show']]);
+    Route::apiResource('approve',LoanController::class,['only' => ['update']]);
+    Route::apiResource('delete',LoanController::class,['only' => ['destroy']]);
+});
+
+Route::group(['prefix'=>'v1/repayloan','middleware' => 'auth'], function(){
+    Route::apiResource('schedules',LoanRepayController::class,['only' => ['index']]);
+    Route::apiResource('single',LoanRepayController::class,['only' => ['show']]);
+    Route::apiResource('payment',LoanRepayController::class,['only' => ['update']]);
 });
